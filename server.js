@@ -24,6 +24,7 @@ mongoose.connect('mongodb://localhost/todo');
 const
     TodoSchema = mongoose.Schema({
         title: String
+
     }),
     Todo = mongoose.model('Todo', TodoSchema),
     routed = express.Router();
@@ -54,6 +55,28 @@ routed
 
 routed
     .route('/:todo_id')
+    .get(function (req, res) {
+        Todo.findOne({ _id: req.params.todo_id }, function (err, todo) {
+            if (err) {
+                res.send(err);
+            }
+            res.json({ todo });
+        });
+    })
+    .put(function (req, res) {
+        Todo.findOne({ _id: req.params.todo_id }, function (err, todo) {
+            if (err) {
+                res.send(err);
+            }
+            todo.title = req.body.title,
+            todo.save(function (err) {
+                if (err) {
+                    res.send(err);
+                }
+                res.send({ message: 'todo update' });
+            });
+        });
+    })
     .delete(function (req, res) {
         Todo.remove({ _id: req.params.todo_id }, function (err) {
             if (err) {
