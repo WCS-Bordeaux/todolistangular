@@ -1,9 +1,11 @@
 <div>{{title}}</div>
 
+<form>
+    <input ng-model="todo" type="text" placeholder="List todolist">
+    <input type="submit" ng-click="addTodo()">
+</form>
 
-<input ng-model="todo" type="text" placeholder="List todolist">
-<button ng-click="addTodo()">Add</button>
 <p ng-repeat="todolist in todoList track by $index">
-    {{todolist}}
-    <button ng-click="delete($index)">Delete</button>
+    {{todolist.title}}
+    <button ng-click="delete($index, todolist._id)">Delete</button>
 </p>
