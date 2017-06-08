@@ -1,11 +1,17 @@
 <div>{{title}}</div>
 
 <form>
+    <!--ng model récupere ce que l'on note dans l'input-->
     <input ng-model="todo" type="text" placeholder="List todolist">
+    <!--le input de type submit à l'interet, quand on appuie sur entré ça envoie directement le formulaire-->
     <input type="submit" ng-click="addTodo()">
 </form>
 
-<p ng-repeat="todolist in todoList track by $index">
+
+<!--le ng repeat permet de faire une boucle sur le tableau qui recupere notre base de donnée dans home.js-->
+<div ng-repeat="todolist in todoList track by $index">
+    <!--nous récupérons l'element de la todoList et nous affichons sont titre-->
     {{todolist.title}}
+    <!--le ng-click nous renvoie vers la function delete -->
     <button ng-click="delete($index, todolist._id)">Delete</button>
-</p>
+</div>
